@@ -2,9 +2,9 @@
   <div class="logo"><img src="assets/logo.svg" alt="Yummies Logo" /></div>
   <nav>
     <ul>
+      <li><a routerLink="/">Home</a></li>
       <li><a routerLink="/create">Create recipe</a></li>
       <li><a routerLink="/recipes">Your recipes</a></li>
-      <li><a routerLink="/">Home</a></li>
     </ul>
   </nav>
 </header>
@@ -32,7 +32,7 @@
         <p>{{ recipe.instructions.split(' ').slice(0,15).join(' ') }}...</p>
       </div>
       <div class="button-group">
-        <button type="button" [routerLink]="['/recipes', recipe._id]">View Recipe</button>
+        <button type="button" [routerLink]="['/recipes', recipe._id]" class="view-btn">View recipe</button>
       </div>
     </div>
   </div>
