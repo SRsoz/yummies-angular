@@ -1,1 +1,35 @@
+<header>
+  <div class="logo"><img src="assets/logo.svg" alt="Yummies Logo" ></div>
+  <nav>
+    <ul>
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/create">Create recipe</a></li>
+      <li><a routerLink="/recipes">Your recipes</a></li>
+    </ul>
+  </nav>
+</header>
 
+<main class="recipe-details" *ngIf="recipe; else loadingOrError">
+  <a routerLink="/" class="back-btn">Back to recipes</a>
+  <h1>{{ recipe.title }}</h1>
+  <img
+    [src]="recipe.image ? 'assets' + recipe.image : 'assets/placeholder.jpg'"
+    [alt]="recipe.title"
+  >
+  <section>
+    <h2>Ingredients</h2>
+    <ul>
+      <li *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Instructions</h2>
+    <p>{{ recipe.instructions }}</p>
+  </section>
+</main>
+
+<ng-template #loadingOrError>
+  <p *ngIf="isLoading">Loading recipe...</p>
+  <p *ngIf="errorMessage">{{ errorMessage }}</p>
+</ng-template>
