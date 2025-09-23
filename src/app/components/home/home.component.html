@@ -1,0 +1,39 @@
+<header>
+  <div class="logo"><img src="assets/logo.svg" alt="Yummies Logo" /></div>
+  <nav>
+    <ul>
+      <li><a routerLink="/create">Create recipe</a></li>
+      <li><a routerLink="/recipes">Your recipes</a></li>
+      <li><a routerLink="/">Home</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Welcome to Yummies!</h1>
+  <p>Here you can create recipes and overview others beautiful creations.</p>
+</section>
+
+<section class="latest-recipes">
+  <div class="header">
+    <h2>Latest recipes</h2>
+    <input
+      type="text"
+      placeholder="Search specific recipe"
+      [(ngModel)]="searchTerm"
+    />
+  </div>
+
+  <div class="recipes-grid">
+    <div class="recipes-card" *ngFor="let recipe of filteredRecipes">
+      <img [src]="recipe.image ? 'assets' + recipe.image : 'assets/placeholder.jpg'" alt="{{ recipe.title }}" />
+      <div class="card-content">
+        <h4>{{ recipe.title }}</h4>
+        <p>{{ recipe.instructions.split(' ').slice(0,15).join(' ') }}...</p>
+      </div>
+      <div class="button-group">
+        <button type="button" [routerLink]="['/recipes', recipe._id]">View Recipe</button>
+      </div>
+    </div>
+  </div>
+</section>

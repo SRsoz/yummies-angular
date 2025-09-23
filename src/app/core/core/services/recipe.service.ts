@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class RecipeService {
-   private apiUrl = 'http://localhost:5000/api/recipes';
+   private apiUrl = 'http://localhost:4000/api/recipes';
 
   constructor(private http: HttpClient) {}
 
