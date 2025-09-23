@@ -33,6 +33,7 @@
       </div>
       <div class="button-group">
         <button type="button" [routerLink]="['/recipes', recipe._id]" class="view-btn">View recipe</button>
+        <button (click)="deleteRecipe(recipe._id)">Delete</button>
       </div>
     </div>
   </div>
