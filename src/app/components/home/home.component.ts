@@ -47,4 +47,16 @@ export class HomeComponent implements OnInit {
       recipe.title.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
+
+  deleteRecipe(id: string) {
+  if (!confirm('Are you sure you want to delete this recipe?')) return;
+
+  this.recipeService.deleteRecipe(id).subscribe({
+    next: () => {
+      this.recipes = this.recipes.filter(r => r._id !== id);
+      console.log('Recipe deleted successfully');
+    },
+    error: (err) => console.error('Failed to delete recipe', err)
+  });
+}
 }
