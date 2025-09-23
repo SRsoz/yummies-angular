@@ -1,0 +1,136 @@
+/* Global body settings */
+:host {
+  display: block;
+  font-family: "Poppins", sans-serif;
+  background-color: #ffffff;
+  color: #000;
+  min-height: 100vh;
+}
+
+/* Header / Navbar */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+}
+
+header .logo img {
+    height: auto;
+    max-height: 200px;
+    display: block;
+}
+
+header nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li a {
+  font-size: 1rem;
+  color: #000;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+  color: #5b184b;
+}
+
+/* Form Container */
+.form-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Form fields */
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  margin-top: 0.8rem;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #5b184b;
+}
+
+/* Buttons */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.save-btn {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #5b184b;
+  border-radius: 20px;
+  background: #5b184b;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.save-btn:hover {
+  background: #3e0f35;
+}
+
+.cancel-btn {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #000;
+  border-radius: 20px;
+  background: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cancel-btn:hover {
+  background: #5b184b;
+  color: #fff;
+}
+
+/* Error & Loading */
+.error {
+  text-align: center;
+  color: red;
+  margin-top: 1rem;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+}

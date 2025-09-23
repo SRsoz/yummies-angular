@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { RecipeService } from '../../core/core/services/recipe.service';
 import { Recipe } from '../../core/core/models/recipe';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,10 @@ export class HomeComponent implements OnInit {
   isLoading = true;
   errorMessage = '';
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(
+    private recipeService: RecipeService,
+     private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.recipeService.getAllRecipes().subscribe({
@@ -58,5 +62,10 @@ export class HomeComponent implements OnInit {
     },
     error: (err) => console.error('Failed to delete recipe', err)
   });
+  }
+
+  editRecipe(id: string) {
+  this.router.navigate(['/update', id]);
 }
+
 }
