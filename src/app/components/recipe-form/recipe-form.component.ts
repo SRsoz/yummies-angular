@@ -34,8 +34,14 @@ export class RecipeFormComponent implements OnInit {
 
     if (this.isEditMode) {
       this.recipeService.getRecipeById(this.recipeId!).subscribe({
-        next: (recipe: Recipe) => {
-          this.recipeForm = this.createForm(recipe);
+        next: (recipe) => {
+          if (recipe) {
+            this.recipeForm = this.createForm(recipe);
+          } else {
+            console.warn('Recipe not found!');
+            this.errorMessage = 'Recipe not found';
+          this.recipeForm = this.createForm();
+          } 
           this.isLoading = false;
         },
         error: (err) => {
