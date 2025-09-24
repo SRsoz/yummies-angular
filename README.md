@@ -1,59 +1,60 @@
-# YummiesAngular
+# YummiesAngular Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
+This is a small frontend project developed for a school project, built with Angular 19.
+The application connects to a previously created API (from U05 project) and demonstrates a fully functional CRUD interface for managing recipes.
+The goal was to create a scalable and maintainable structure that could easily be extended by other developers in the future.
 
-## Development server
+## Features
 
-To start a local development server, run:
+View all recipes: Browse all recipes stored in the backend.
 
-```bash
+View single recipe: Click on a recipe to see its details.
+
+Create a recipe: Add a new recipe using a simple form.
+
+Update a recipe: Edit existing recipes in the same form.
+
+Delete a recipe: Remove recipes with a single click.
+
+Responsive design: Works well on both desktop and mobile devices.
+
+## Technical Details
+
+Frontend: Angular 19 with standalone components
+
+Services: RecipeService handles all API requests using RxJS observables
+
+Routing: Router and router-outlet manage navigation between components
+
+Testing: 3 Unit tests written for the RecipeForm Component
+
+Deployment: Hosted on Netlify: https://yummiees.netlify.app
+
+## Installation
+
+Clone the repository:
+
+git clone <https://github.com/SRsoz/yummies-angular.git>
+
+
+Install dependencies:
+
+npm install
+
+
+Run the application locally:
+
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+Open your browser at http://localhost:4200.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Quick Guide for New Developers
 
-```bash
-ng generate component component-name
-```
+If you want to explore or extend this project:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Start by looking at the components folder. Each feature has its own component.
 
-```bash
-ng generate --help
-```
+The RecipeService in core/services handles all communication with the API. You can see how RxJS observables are used for GET, POST, PUT, and DELETE requests.
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+The router is configured in app.routes.ts to connect components to URLs.
