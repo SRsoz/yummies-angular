@@ -1,7 +1,7 @@
 <!-- Header / Navbar -->
 <header>
   <div class="logo">
-    <img src="assets/logo.svg" alt="Yummies Logo" />
+    <img src="assets/logo.svg" alt="Yummies Logo" >
   </div>
   <nav>
     <ul>
@@ -12,27 +12,30 @@
   </nav>
 </header>
 
-<!-- Edit Form Container -->
 <div *ngIf="isLoading" class="loading">Loading...</div>
 
 <div *ngIf="!isLoading && recipeForm" class="form-container">
-  <h2>Edit Recipe</h2>
-  <form [formGroup]="recipeForm" (ngSubmit)="updateRecipe()">
+  <h2>{{ isEditMode ? "Edit Recipe" : "Create Recipe" }}</h2>
+  <form [formGroup]="recipeForm" (ngSubmit)="submit()">
     <label>Title</label>
-    <input type="text" formControlName="title" />
+    <input type="text" formControlName="title" >
 
-    <label>Ingredients (comma separated)</label>
-    <input type="text" formControlName="ingredients" />
+    <label>Ingredients</label>
+    <input type="text" formControlName="ingredients" >
 
     <label>Instructions</label>
     <textarea formControlName="instructions"></textarea>
 
     <label>Image URL</label>
-    <input type="text" formControlName="image" />
+    <input type="text" formControlName="image" >
 
     <div class="button-group">
-      <button type="submit" class="save-btn">Save</button>
-      <button type="button" (click)="cancel()" class="cancel-btn">Cancel</button>
+      <button type="submit" class="save-btn">
+        {{ isEditMode ? "Save" : "Create" }}
+      </button>
+      <button type="button" (click)="cancel()" class="cancel-btn">
+        Cancel
+      </button>
     </div>
   </form>
 </div>

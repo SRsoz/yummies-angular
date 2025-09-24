@@ -7,17 +7,18 @@ import { RecipeService } from '../../core/core/services/recipe.service';
 import { Recipe } from '../../core/core/models/recipe';
 
 @Component({
-  selector: 'app-update-recipe',
+  selector: 'app-recipe-form',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './recipe-form.component.html',
   styleUrls: ['./recipe-form.component.css']
 })
 export class RecipeFormComponent implements OnInit {
-  recipeId!: string;
+  recipeId?: string;
   recipeForm!: FormGroup;
   isLoading = true;
   errorMessage = '';
+  isEditMode = false;
 
   constructor(
     private fb: FormBuilder,
@@ -25,50 +26,66 @@ export class RecipeFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.recipeId = this.route.snapshot.paramMap.get('id')!;
+    this.recipeId = this.route.snapshot.paramMap.get('id') || undefined;
+    this.isEditMode = !!this.recipeId;
 
-    this.recipeService.getRecipeById(this.recipeId).subscribe({
-      next: (recipe: Recipe) => {
-        this.recipeForm = this.fb.group({
-          title: [recipe.title, Validators.required],
-          ingredients: [recipe.ingredients.join(', '), Validators.required],
-          instructions: [recipe.instructions, Validators.required],
-          image: [recipe.image]
-        });
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('Error fetching recipe:', err);
-        this.errorMessage = 'Could not load recipe';
-        this.isLoading = false;
-      }
+    if (this.isEditMode) {
+      this.recipeService.getRecipeById(this.recipeId!).subscribe({
+        next: (recipe: Recipe) => {
+          this.recipeForm = this.createForm(recipe);
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error('Error fetching recipe:', err);
+          this.errorMessage = 'Could not load recipe';
+          this.isLoading = false;
+        }
+      });
+    } else {
+      this.recipeForm = this.createForm();
+      this.isLoading = false;
+    }
+  }
+
+  private createForm(recipe?: Recipe): FormGroup {
+    return this.fb.group({
+      title: [recipe?.title || '', Validators.required],
+      ingredients: [recipe?.ingredients?.join(', ') || '', Validators.required],
+      instructions: [recipe?.instructions || '', Validators.required],
+      image: [recipe?.image || '']
     });
   }
 
-  updateRecipe(): void {
-  if (this.recipeForm.invalid) return;
+  submit(): void {
+    if (this.recipeForm.invalid) return;
 
-  const updatedRecipe: Recipe = {
-    ...this.recipeForm.value,
-    ingredients: this.recipeForm.value.ingredients.split(',').map((i: string) => i.trim())
-  };
+    const recipeData: Recipe = {
+      ...this.recipeForm.value,
+      ingredients: this.recipeForm.value.ingredients.split(',').map((i: string) => i.trim())
+    };
 
-  this.recipeService.updateRecipe(this.recipeId, updatedRecipe).subscribe({
-    next: (recipe) => {
-      this.recipeForm.patchValue({
-        title: recipe.title,
-        ingredients: recipe.ingredients.join(', '),
-        instructions: recipe.instructions,
-        image: recipe.image
+    if (this.isEditMode) {
+      this.recipeService.updateRecipe(this.recipeId!, recipeData).subscribe({
+        next: () => {
+          alert('Recipe updated successfully!');
+          this.router.navigate(['/']);
+          },
+        error: (err) => console.error('Update failed:', err)
       });
-      alert('Recipe updated successfully!');
-    },
-    error: (err) => console.error('Update failed:', err)
-  });
-}
+    } else {
+      this.recipeService.createRecipe(recipeData).subscribe({
+        next: () => {
+          alert('Recipe created successfully!');
+          this.router.navigate(['/']);
+        },
+        error: (err) => console.error('Create failed:', err)
+      });
+    }
+  }
+
   cancel(): void {
     this.location.back();
   }
